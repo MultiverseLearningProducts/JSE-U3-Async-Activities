@@ -1,49 +1,52 @@
-# Unit 3 Work - 3-2 Solution
+# Unit 3 Work - 3-3 Solution
 
 ## Overview
-This project demonstrates the fundamental concept of classes as blueprints and object creation in Java.
+This project demonstrates encapsulation with private fields and public getter/setter methods in Java.
 
-## Task: Blueprint for a Product
-**Objective**: Learn to define a class as a blueprint and create multiple, distinct objects from it.
+## Task: Encapsulation with Getters and Setters
+**Objective**: Implement encapsulation by making fields private and providing public methods for controlled data access.
 
 ### Implementation
-- **Product.java**: A class blueprint with three public fields (name, price, sku)
-- **Store.java**: Main class that creates and uses Product objects
+- **Product.java**: Class with private fields and public getter/setter methods
+- **Store.java**: Main class demonstrating controlled data access through methods
 
 ### Key Learning Concepts
 
-#### 1. Classes as Blueprints
-- A class defines the structure and attributes of objects
-- It's like a template or blueprint for creating objects
-- All objects created from the same class share the same structure
+#### 1. Encapsulation
+- **Private Fields**: Data is hidden and protected from direct access
+- **Public Methods**: Controlled access through getter and setter methods
+- **Data Protection**: Prevents unauthorized modification of object state
 
-#### 2. Object Creation
-- Objects are instances of a class
-- Each object is independent and has its own data
-- Objects are created using the `new` keyword
+#### 2. Getter Methods
+- **Purpose**: Provide read access to private fields
+- **Naming**: `getFieldName()` convention
+- **Return Type**: Same as the field type
+- **Example**: `public String getName() { return name; }`
 
-#### 3. Public Fields
-- Fields can be declared as `public` for direct access
-- Accessed using dot notation: `object.fieldName`
-- Each object has its own copy of the fields
+#### 3. Setter Methods
+- **Purpose**: Provide controlled write access to private fields
+- **Naming**: `setFieldName()` convention
+- **Parameters**: Same type as the field
+- **Example**: `public void setPrice(double price) { this.price = price; }`
 
-#### 4. Object Independence
-- Changing one object doesn't affect other objects
-- Each object maintains its own state
-- Objects can have different values for the same fields
+#### 4. Benefits of Encapsulation
+- **Data Validation**: Setters can validate data before setting
+- **Flexibility**: Internal implementation can change without affecting users
+- **Security**: Prevents direct access to sensitive data
+- **Maintainability**: Clear interface for object interaction
 
-## Project Structure
+### Project Structure
 ```
 unit-3-work/
 ├── src/
 │   └── main/
 │       └── java/
-│           ├── Product.java      # Class blueprint with public fields
-│           └── Store.java        # Main class demonstrating object creation
+│           ├── Product.java      # Encapsulated class with private fields and public methods
+│           └── Store.java        # Main class demonstrating controlled data access
 └── README.md
 ```
 
-## How to Run
+### How to Run
 ```bash
 # Compile the classes
 javac src/main/java/*.java
@@ -52,46 +55,73 @@ javac src/main/java/*.java
 java -cp src/main/java Store
 ```
 
-## Expected Output
+### Expected Output
 ```
-=== Store Product Management ===
-Demonstrating classes as blueprints and object creation
+=== Store Product Management with Encapsulation ===
+Demonstrating private fields and public getter/setter methods
 
---- Product 1 ---
+--- Product 1 (Using Individual Getters) ---
 Name: Gaming Laptop
 Price: $1299.99
 SKU: LAP-001
 
---- Product 2 ---
-Name: Wireless Mouse
-Price: $29.99
-SKU: MOU-002
+--- Product 2 (Using Utility Method) ---
+Product: Wireless Mouse, Price: $29.99, SKU: MOU-002
 
---- Object Independence Demo ---
-Both products are separate objects:
-Laptop object: Product@[memory_address]
-Mouse object: Product@[memory_address]
-They have different memory locations and data!
-
---- Modifying Objects Independently ---
-Laptop price after discount: $1199.99
+--- Modifying Objects Through Setters ---
+Original laptop price: $1299.99
+New laptop price: $1199.99
 Mouse price remains unchanged: $29.99
 
-=== Key Learning Points ===
-1. Classes are blueprints for creating objects
-2. Objects are instances of a class
-3. Each object has its own copy of the fields
-4. Objects are independent - changing one doesn't affect others
-5. Public fields can be accessed directly with dot notation
+--- Using Utility Method for Bulk Updates ---
+New product created: Product: Mechanical Keyboard, Price: $89.99, SKU: KEY-003
+
+--- Object Independence with Encapsulation ---
+All products are separate objects with their own data:
+Laptop: Product: Gaming Laptop, Price: $1199.99, SKU: LAP-001
+Mouse: Product: Wireless Mouse, Price: $29.99, SKU: MOU-002
+Keyboard: Product: Mechanical Keyboard, Price: $89.99, SKU: KEY-003
+
+=== Benefits of Encapsulation ===
+1. Data Protection: Fields are private and can't be accessed directly
+2. Controlled Access: Only through public getter/setter methods
+3. Data Validation: Setters can validate data before setting
+4. Flexibility: Internal implementation can change without affecting users
+5. Better Design: Clear interface for interacting with objects
 ```
 
-## Learning Objectives
-- Understand the relationship between classes and objects
-- Learn how to create multiple objects from the same class
-- Practice accessing and modifying object fields
-- Understand object independence and state management
-- Learn the difference between classes (blueprints) and objects (instances)
+### Key Differences from 3-2-Solution
+
+#### Before (3-2-Solution)
+```java
+// Direct field access
+laptop.name = "Gaming Laptop";
+laptop.price = 1299.99;
+System.out.println(laptop.name);
+```
+
+#### After (3-3-Solution)
+```java
+// Controlled access through methods
+laptop.setName("Gaming Laptop");
+laptop.setPrice(1299.99);
+System.out.println(laptop.getName());
+```
+
+### Learning Objectives
+- Understand the concept of encapsulation
+- Learn how to create private fields and public methods
+- Practice using getter and setter methods
+- Understand the benefits of controlled data access
+- Learn proper method naming conventions
+- Understand the `this` keyword usage
+
+### Advanced Concepts Demonstrated
+- **Utility Methods**: `setProductInfo()` and `getProductInfo()`
+- **Method Overloading**: Multiple ways to set data
+- **Data Validation**: Potential for validation in setters
+- **Interface Design**: Clear public API for object interaction
 
 ---
 
-*This project is designed for educational purposes and follows Java best practices for beginners.*
+*This project is designed for educational purposes and follows Java best practices for encapsulation.*
