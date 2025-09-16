@@ -1,41 +1,41 @@
-# Unit 3 Work - 3-5 Solution
+# Unit 3 Work - 3-6 Solution
 
 ## Overview
-This project demonstrates polymorphism in action by using parent class references to hold child class objects and observing how Java calls the correct method at runtime.
+This project demonstrates a flexible shopping cart that combines all OOP principles by creating a collection that can hold different but related object types and process them uniformly.
 
-## Task: Polymorphism in Action
-**Objective**: Observe polymorphism by using a parent class reference to hold a child class object and see how Java calls the correct method at runtime.
+## Task: Building a Flexible Shopping Cart
+**Objective**: Combine all the OOP principles by creating a collection that can hold different but related object types.
 
 ### Implementation
 - **Product.java**: Parent class with displayInfo() method
 - **DigitalProduct.java**: Child class that extends Product and overrides displayInfo()
-- **Store.java**: Main class demonstrating polymorphism with parent references
+- **Store.java**: Main class demonstrating flexible shopping cart with ArrayList and for-each loops
 
 ### Key Learning Concepts
 
-#### 1. Polymorphism
-- **Runtime Binding**: Java determines which method to call at runtime
-- **Parent References**: Can hold child class objects
-- **Same Interface**: Different objects respond to the same method call
-- **Dynamic Dispatch**: Method resolution based on actual object type
+#### 1. Collections with Polymorphism
+- **ArrayList<Product>**: Collection declared to hold parent class references
+- **Mixed Types**: Can hold both Product and DigitalProduct objects
+- **Type Safety**: Compile-time checking ensures all items are Product objects
+- **Uniform Processing**: Same code works for all object types
 
-#### 2. Method Overriding
-- **@Override Annotation**: Indicates intentional method overriding
-- **Same Signature**: Must have the same method signature as parent
-- **Specialized Behavior**: Child class provides its own implementation
-- **Polymorphic Calls**: Same method call produces different results
+#### 2. For-Each Loops
+- **Enhanced For Loop**: `for (Product item : shoppingCart)`
+- **Automatic Iteration**: No need to manage indices manually
+- **Polymorphic Calls**: Each item behaves according to its actual type
+- **Clean Code**: Simple and readable iteration syntax
 
-#### 3. Reference vs Object Types
-- **Reference Type**: Determines what methods are available
-- **Object Type**: Determines which version of the method is called
-- **Runtime Decision**: Java chooses the correct method at runtime
-- **Type Safety**: Compile-time checking vs runtime behavior
+#### 3. Combined OOP Principles
+- **Encapsulation**: Private fields with public methods
+- **Inheritance**: DigitalProduct extends Product
+- **Polymorphism**: Same method call, different behavior
+- **Collections**: Managing multiple objects uniformly
 
-#### 4. Benefits of Polymorphism
-- **Code Reusability**: Same code works with different object types
-- **Flexibility**: Easy to add new types without changing existing code
-- **Maintainability**: Changes to one class don't affect others
-- **Extensibility**: New functionality through inheritance
+#### 4. Real-World Applications
+- **GUI Components**: Managing different UI elements
+- **Database Records**: Processing various entity types
+- **Game Objects**: Handling different game entities
+- **File Processing**: Working with different file types
 
 ### Project Structure
 ```
@@ -45,7 +45,7 @@ unit-3-work/
 │       └── java/
 │           ├── Product.java          # Parent class with displayInfo() method
 │           ├── DigitalProduct.java   # Child class that overrides displayInfo()
-│           └── Store.java            # Main class demonstrating polymorphism
+│           └── Store.java            # Main class with flexible shopping cart
 └── README.md
 ```
 
@@ -60,27 +60,41 @@ java -cp src/main/java Store
 
 ### Expected Output
 ```
-=== Store Product Management with Polymorphism ===
-Demonstrating how the same method call produces different output
-depending on the actual type of the object
+=== Flexible Shopping Cart with OOP Principles ===
+Combining encapsulation, inheritance, and polymorphism in a practical application
 
-=== Polymorphism Demonstration ===
-Using the same variable 'currentProduct' to reference different objects
+=== Building the Shopping Cart ===
+Adding various Product and DigitalProduct objects to the cart...
 
---- Step 1: Assigning Standard Product ---
-currentProduct now references a Standard Product object
-Calling currentProduct.displayInfo():
+Shopping cart now contains 6 items
+
+=== Processing the Shopping Cart ===
+Using a for-each loop to process all items uniformly:
+
+--- Shopping Cart Item 1 ---
 === Product Information ===
 Name: Gaming Laptop
 Price: $1299.99
 SKU: LAP-001
 Type: Standard Product
 
---- Step 2: Assigning Digital Product ---
-currentProduct now references a Digital Product object
-Calling currentProduct.displayInfo() again:
+--- Shopping Cart Item 2 ---
 === Product Information ===
-Name: E-Book: Java Programming
+Name: Java Programming Guide
+Price: $49.99
+SKU: BOOK-001
+Type: Standard Product
+
+--- Shopping Cart Item 3 ---
+=== Product Information ===
+Name: Developer T-Shirt
+Price: $24.99
+SKU: SHIRT-001
+Type: Standard Product
+
+--- Shopping Cart Item 4 ---
+=== Product Information ===
+Name: E-Book: Advanced Java
 Price: $29.99
 SKU: EBOOK-001
 Type: Standard Product
@@ -88,60 +102,93 @@ Download URL: https://store.example.com/download/ebook-001
 Type: Digital Product
 Description: This is a digital item that can be downloaded instantly
 
-=== The Magic of Polymorphism ===
-Notice that we used the EXACT same line of code:
-    currentProduct.displayInfo();
+--- Shopping Cart Item 5 ---
+=== Product Information ===
+Name: Online Course: OOP Mastery
+Price: $99.99
+SKU: COURSE-001
+Type: Standard Product
+Download URL: https://learn.example.com/course-oop-mastery
+Type: Digital Product
+Description: This is a digital item that can be downloaded instantly
 
-But it produced completely different output!
-This is because Java determines at RUNTIME which method to call
-based on the ACTUAL type of the object, not the reference type.
+--- Shopping Cart Item 6 ---
+=== Product Information ===
+Name: IDE Software License
+Price: $199.99
+SKU: SOFT-001
+Type: Standard Product
+Download URL: https://download.example.com/ide-license
+Type: Digital Product
+Description: This is a digital item that can be downloaded instantly
+
+=== Advanced Shopping Cart Operations ===
+Total Cart Value: $1704.94
+
+Cart Summary:
+- Physical Products: 3
+- Digital Products: 3
+- Total Items: 6
 ```
 
-### Key Differences from 3-4-Solution
+### Key Differences from 3-5-Solution
 
-#### Before (3-4-Solution)
+#### Before (3-5-Solution)
 ```java
-// Direct object references
+// Individual object references
 Product standardProduct = new Product();
 DigitalProduct digitalProduct = new DigitalProduct();
-standardProduct.displayInfo(); // Product's version
-digitalProduct.displayInfo();  // DigitalProduct's version
-```
-
-#### After (3-5-Solution)
-```java
-// Polymorphism with parent references
-Product currentProduct;
-currentProduct = new Product();
-currentProduct.displayInfo(); // Calls Product's displayInfo()
-
-currentProduct = new DigitalProduct();
-currentProduct.displayInfo(); // Calls DigitalProduct's displayInfo()!
-```
-
-### Learning Objectives
-- Understand the concept of polymorphism and runtime method resolution
-- Learn how parent references can hold child objects
-- Practice observing different behavior from the same method call
-- Understand the difference between reference type and actual object type
-- Learn how polymorphism enables flexible and extensible code
-- Understand the benefits of polymorphic design
-
-### Advanced Concepts Demonstrated
-- **Runtime Polymorphism**: Dynamic method resolution
-- **Method Overriding**: Child classes providing specialized implementations
-- **Type Casting**: Converting between parent and child references
-- **Array Polymorphism**: Using arrays of parent references
-- **Interface Design**: Single interface for multiple implementations
-
-### Polymorphism in Action
-The key demonstration is that the same line of code:
-```java
+currentProduct = standardProduct;
+currentProduct.displayInfo();
+currentProduct = digitalProduct;
 currentProduct.displayInfo();
 ```
 
-Produces completely different output depending on whether `currentProduct` references a `Product` or `DigitalProduct` object. This is the power of polymorphism - the same interface can have multiple implementations!
+#### After (3-6-Solution)
+```java
+// Collection-based approach
+ArrayList<Product> shoppingCart = new ArrayList<>();
+shoppingCart.add(laptop);
+shoppingCart.add(ebook);
+shoppingCart.add(course);
+
+// Uniform processing with for-each loop
+for (Product item : shoppingCart) {
+    item.displayInfo(); // Polymorphism in action!
+}
+```
+
+### Learning Objectives
+- Understand how to use collections with polymorphic objects
+- Learn to create flexible data structures that can hold related types
+- Practice using for-each loops with collections
+- Understand the power of combining OOP principles
+- Learn real-world patterns for managing multiple object types
+- Understand the benefits of uniform processing
+
+### Advanced Concepts Demonstrated
+- **Collections Framework**: Using ArrayList for dynamic storage
+- **Polymorphic Collections**: Storing different types in the same collection
+- **For-Each Loops**: Modern iteration syntax
+- **Type Checking**: Using instanceof for type identification
+- **Collection Operations**: Adding, removing, and processing items
+- **Real-World Patterns**: Common software development techniques
+
+### Real-World Applications
+This pattern is used everywhere in software development:
+- **GUI Components**: `List<Component>` for buttons, labels, panels
+- **Database Records**: `List<Entity>` for users, orders, products
+- **Game Objects**: `List<GameObject>` for players, enemies, items
+- **File Processing**: `List<File>` for documents, images, videos
+- **API Responses**: `List<Response>` for different data types
+
+### Why This Pattern is Powerful
+1. **Uniform Processing**: Same code works for all product types
+2. **Easy to Extend**: Add new product types without changing existing code
+3. **Type Safety**: ArrayList ensures all items are Product objects
+4. **Polymorphic Behavior**: Each item behaves according to its actual type
+5. **Collection Benefits**: Easy to add, remove, iterate, and search
 
 ---
 
-*This project is designed for educational purposes and demonstrates advanced object-oriented programming concepts.*
+*This project demonstrates the culmination of object-oriented programming principles in a practical, real-world application.*

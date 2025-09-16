@@ -1,118 +1,175 @@
 /**
- * Store class demonstrates polymorphism in action.
- * This class shows how the same method call can produce different output
- * depending on the actual type of the object, even when referenced through
- * a parent class variable.
+ * Store class demonstrates a flexible shopping cart using collections and polymorphism.
+ * This class shows how to combine all OOP principles by creating a collection
+ * that can hold different but related object types and process them uniformly.
  * 
  * @author Student Developer
  * @version 1.0.0
  */
+import java.util.ArrayList;
+
 public class Store {
     
     /**
-     * Main method - demonstrates polymorphism with Product and DigitalProduct objects.
-     * This method shows how Java's runtime polymorphism works by using a parent
-     * class reference to hold child class objects and calling the same method
-     * to produce different results.
+     * Main method - demonstrates a flexible shopping cart with polymorphic collections.
+     * This method shows how to use ArrayList with parent class references to manage
+     * different types of objects uniformly, demonstrating the power of OOP principles.
      * 
      * @param args command line arguments (not used in this example)
      */
     public static void main(String[] args) {
-        System.out.println("=== Store Product Management with Polymorphism ===");
-        System.out.println("Demonstrating how the same method call produces different output");
-        System.out.println("depending on the actual type of the object");
+        System.out.println("=== Flexible Shopping Cart with OOP Principles ===");
+        System.out.println("Combining encapsulation, inheritance, and polymorphism in a practical application");
         System.out.println();
         
-        // Create a standard Product object
-        Product standardProduct = new Product();
-        standardProduct.setProductInfo("Gaming Laptop", 1299.99, "LAP-001");
+        // Create various Product objects
+        Product laptop = new Product();
+        laptop.setProductInfo("Gaming Laptop", 1299.99, "LAP-001");
         
-        // Create a DigitalProduct object
-        DigitalProduct digitalProduct = new DigitalProduct();
-        digitalProduct.setDigitalProductInfo("E-Book: Java Programming", 29.99, "EBOOK-001", 
-                                           "https://store.example.com/download/ebook-001");
+        Product book = new Product();
+        book.setProductInfo("Java Programming Guide", 49.99, "BOOK-001");
         
-        // This is the key to polymorphism - using a parent class reference
-        Product currentProduct;
+        Product tShirt = new Product();
+        tShirt.setProductInfo("Developer T-Shirt", 24.99, "SHIRT-001");
         
-        System.out.println("=== Polymorphism Demonstration ===");
-        System.out.println("Using the same variable 'currentProduct' to reference different objects");
+        // Create various DigitalProduct objects
+        DigitalProduct ebook = new DigitalProduct();
+        ebook.setDigitalProductInfo("E-Book: Advanced Java", 29.99, "EBOOK-001", 
+                                   "https://store.example.com/download/ebook-001");
+        
+        DigitalProduct course = new DigitalProduct();
+        course.setDigitalProductInfo("Online Course: OOP Mastery", 99.99, "COURSE-001", 
+                                    "https://learn.example.com/course-oop-mastery");
+        
+        DigitalProduct software = new DigitalProduct();
+        software.setDigitalProductInfo("IDE Software License", 199.99, "SOFT-001", 
+                                      "https://download.example.com/ide-license");
+        
+        // This is the key to flexible collections - ArrayList of parent type
+        ArrayList<Product> shoppingCart = new ArrayList<>();
+        
+        System.out.println("=== Building the Shopping Cart ===");
+        System.out.println("Adding various Product and DigitalProduct objects to the cart...");
         System.out.println();
         
-        // First, assign the standard Product to the parent reference
-        System.out.println("--- Step 1: Assigning Standard Product ---");
-        currentProduct = standardProduct;
-        System.out.println("currentProduct now references a Standard Product object");
-        System.out.println("Calling currentProduct.displayInfo():");
-        currentProduct.displayInfo(); // This calls Product's displayInfo()
+        // Add all products to the shopping cart
+        // Notice: We can add both Product and DigitalProduct objects to the same list!
+        shoppingCart.add(laptop);
+        shoppingCart.add(book);
+        shoppingCart.add(tShirt);
+        shoppingCart.add(ebook);
+        shoppingCart.add(course);
+        shoppingCart.add(software);
+        
+        System.out.println("Shopping cart now contains " + shoppingCart.size() + " items");
         System.out.println();
         
-        // Now, assign the DigitalProduct to the same parent reference
-        System.out.println("--- Step 2: Assigning Digital Product ---");
-        currentProduct = digitalProduct;
-        System.out.println("currentProduct now references a Digital Product object");
-        System.out.println("Calling currentProduct.displayInfo() again:");
-        currentProduct.displayInfo(); // This calls DigitalProduct's displayInfo()!
+        // Demonstrate the power of polymorphic collections
+        System.out.println("=== Processing the Shopping Cart ===");
+        System.out.println("Using a for-each loop to process all items uniformly:");
         System.out.println();
         
-        // Demonstrate that the same line of code produces different output
-        System.out.println("=== The Magic of Polymorphism ===");
-        System.out.println("Notice that we used the EXACT same line of code:");
-        System.out.println("    currentProduct.displayInfo();");
-        System.out.println();
-        System.out.println("But it produced completely different output!");
-        System.out.println("This is because Java determines at RUNTIME which method to call");
-        System.out.println("based on the ACTUAL type of the object, not the reference type.");
-        System.out.println();
-        
-        // Show the objects are still independent
-        System.out.println("=== Object Independence ===");
-        System.out.println("Both objects still exist independently:");
-        System.out.println("Standard Product: " + standardProduct.getProductInfo());
-        System.out.println("Digital Product: " + digitalProduct.getProductInfo());
-        System.out.println();
-        
-        // Demonstrate that we can still access child-specific methods when we have the right reference
-        System.out.println("=== Accessing Child-Specific Methods ===");
-        System.out.println("When we have a DigitalProduct reference, we can access specialized methods:");
-        System.out.println("Download URL: " + digitalProduct.getDownloadUrl());
-        System.out.println();
-        
-        // Show what happens when we try to access child methods through parent reference
-        System.out.println("=== Polymorphism Limitations ===");
-        System.out.println("When using a parent reference, we can only access parent methods:");
-        System.out.println("// currentProduct.getDownloadUrl(); // ERROR: Method not found in Product");
-        System.out.println("This is because the reference type determines what methods are available,");
-        System.out.println("but the actual object type determines which version of the method is called.");
-        System.out.println();
-        
-        // Demonstrate polymorphism with multiple objects
-        System.out.println("=== Polymorphism with Multiple Objects ===");
-        System.out.println("Let's create an array of Product references to show polymorphism at scale:");
-        
-        Product[] products = new Product[3];
-        products[0] = new Product();
-        products[0].setProductInfo("Physical Book", 19.99, "BOOK-001");
-        
-        products[1] = new DigitalProduct();
-        products[1].setProductInfo("Online Course", 99.99, "COURSE-001");
-        ((DigitalProduct) products[1]).setDownloadUrl("https://learn.example.com/course-001");
-        
-        products[2] = new Product();
-        products[2].setProductInfo("T-Shirt", 24.99, "SHIRT-001");
-        
-        System.out.println("Calling displayInfo() on each product in the array:");
-        for (int i = 0; i < products.length; i++) {
-            System.out.println("--- Product " + (i + 1) + " ---");
-            products[i].displayInfo(); // Polymorphism in action!
+        int itemNumber = 1;
+        for (Product item : shoppingCart) {
+            System.out.println("--- Shopping Cart Item " + itemNumber + " ---");
+            // This is the magic of polymorphism - the same method call
+            // produces different behavior based on the actual object type!
+            item.displayInfo();
             System.out.println();
+            itemNumber++;
         }
         
-        System.out.println("=== Key Benefits of Polymorphism ===");
-        System.out.println("1. Code Reusability: Same method works for different object types");
-        System.out.println("2. Flexibility: Easy to add new types without changing existing code");
-        System.out.println("3. Maintainability: Changes to one class don't affect others");
-        System.out.println("4. Extensibility: New functionality can be added through inheritance");
-        System.out.println("5. Clean Design: Single interface for multiple implementations");
+        // Demonstrate additional operations on the polymorphic collection
+        System.out.println("=== Advanced Shopping Cart Operations ===");
+        System.out.println();
+        
+        // Calculate total price
+        double totalPrice = 0.0;
+        for (Product item : shoppingCart) {
+            totalPrice += item.getPrice();
+        }
+        System.out.println("Total Cart Value: $" + String.format("%.2f", totalPrice));
+        System.out.println();
+        
+        // Count different types of products
+        int physicalProducts = 0;
+        int digitalProducts = 0;
+        
+        for (Product item : shoppingCart) {
+            if (item instanceof DigitalProduct) {
+                digitalProducts++;
+            } else {
+                physicalProducts++;
+            }
+        }
+        
+        System.out.println("Cart Summary:");
+        System.out.println("- Physical Products: " + physicalProducts);
+        System.out.println("- Digital Products: " + digitalProducts);
+        System.out.println("- Total Items: " + shoppingCart.size());
+        System.out.println();
+        
+        // Demonstrate removing items
+        System.out.println("=== Removing Items from Cart ===");
+        System.out.println("Removing the first item (laptop)...");
+        Product removedItem = shoppingCart.remove(0);
+        System.out.println("Removed: " + removedItem.getName());
+        System.out.println("Cart now contains " + shoppingCart.size() + " items");
+        System.out.println();
+        
+        // Show the updated cart
+        System.out.println("=== Updated Shopping Cart ===");
+        itemNumber = 1;
+        for (Product item : shoppingCart) {
+            System.out.println("Item " + itemNumber + ": " + item.getName() + " - $" + item.getPrice());
+            itemNumber++;
+        }
+        System.out.println();
+        
+        // Demonstrate the power of this pattern
+        System.out.println("=== Why This Pattern is Powerful ===");
+        System.out.println("1. Uniform Processing: Same code works for all product types");
+        System.out.println("2. Easy to Extend: Add new product types without changing existing code");
+        System.out.println("3. Type Safety: ArrayList ensures all items are Product objects");
+        System.out.println("4. Polymorphic Behavior: Each item behaves according to its actual type");
+        System.out.println("5. Collection Benefits: Easy to add, remove, iterate, and search");
+        System.out.println();
+        
+        // Show how easy it is to add new functionality
+        System.out.println("=== Adding New Functionality ===");
+        System.out.println("Let's add a method to find products by price range:");
+        
+        System.out.println("Products under $50:");
+        for (Product item : shoppingCart) {
+            if (item.getPrice() < 50.0) {
+                System.out.println("- " + item.getName() + " ($" + item.getPrice() + ")");
+            }
+        }
+        System.out.println();
+        
+        System.out.println("Products $50 and above:");
+        for (Product item : shoppingCart) {
+            if (item.getPrice() >= 50.0) {
+                System.out.println("- " + item.getName() + " ($" + item.getPrice() + ")");
+            }
+        }
+        System.out.println();
+        
+        // Demonstrate the real-world power of this pattern
+        System.out.println("=== Real-World Applications ===");
+        System.out.println("This pattern is used everywhere in software development:");
+        System.out.println("- GUI Components: List<Component> for buttons, labels, panels");
+        System.out.println("- Database Records: List<Entity> for users, orders, products");
+        System.out.println("- Game Objects: List<GameObject> for players, enemies, items");
+        System.out.println("- File Processing: List<File> for documents, images, videos");
+        System.out.println("- API Responses: List<Response> for different data types");
+        System.out.println();
+        
+        System.out.println("=== Key Learning Points ===");
+        System.out.println("1. Collections can hold parent class references to child objects");
+        System.out.println("2. For-each loops work seamlessly with polymorphic collections");
+        System.out.println("3. The same method call produces different behavior for each object");
+        System.out.println("4. This pattern makes code flexible, maintainable, and extensible");
+        System.out.println("5. It's one of the most powerful techniques in object-oriented programming");
     }
 }
