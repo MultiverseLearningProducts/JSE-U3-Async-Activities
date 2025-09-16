@@ -1,7 +1,7 @@
 /**
- * Store class demonstrates how to use encapsulated Product objects.
- * This class shows how to interact with objects that have private fields
- * through public getter and setter methods.
+ * Store class demonstrates inheritance in action.
+ * This class shows how child classes inherit properties and behaviors
+ * from parent classes and can extend them with specialized functionality.
  * 
  * @author Student Developer
  * @version 1.0.0
@@ -9,86 +9,101 @@
 public class Store {
     
     /**
-     * Main method - demonstrates encapsulation and controlled data access.
-     * This method shows how to create Product objects and interact with them
-     * using getter and setter methods instead of direct field access.
+     * Main method - demonstrates inheritance with Product and DigitalProduct objects.
+     * This method shows how child classes inherit from parent classes and
+     * can override methods to provide specialized behavior.
      * 
      * @param args command line arguments (not used in this example)
      */
     public static void main(String[] args) {
-        System.out.println("=== Store Product Management with Encapsulation ===");
-        System.out.println("Demonstrating private fields and public getter/setter methods");
+        System.out.println("=== Store Product Management with Inheritance ===");
+        System.out.println("Demonstrating how child classes inherit from parent classes");
         System.out.println();
         
-        // Create the first Product object
-        Product laptop = new Product();
+        // Create a standard Product object
+        Product standardProduct = new Product();
+        standardProduct.setProductInfo("Gaming Laptop", 1299.99, "LAP-001");
         
-        // Set the field values using setter methods (encapsulation in action!)
-        laptop.setName("Gaming Laptop");
-        laptop.setPrice(1299.99);
-        laptop.setSku("LAP-001");
+        // Create a DigitalProduct object (inherits from Product)
+        DigitalProduct digitalProduct = new DigitalProduct();
+        digitalProduct.setDigitalProductInfo("E-Book: Java Programming", 29.99, "EBOOK-001", 
+                                           "https://store.example.com/download/ebook-001");
         
-        // Create the second Product object
-        Product mouse = new Product();
-        
-        // Set the field values using setter methods
-        mouse.setName("Wireless Mouse");
-        mouse.setPrice(29.99);
-        mouse.setSku("MOU-002");
-        
-        // Display the first product information using getter methods
-        System.out.println("--- Product 1 (Using Individual Getters) ---");
-        System.out.println("Name: " + laptop.getName());
-        System.out.println("Price: $" + laptop.getPrice());
-        System.out.println("SKU: " + laptop.getSku());
+        System.out.println("=== Inheritance Demonstration ===");
+        System.out.println("Both objects can use inherited methods from the Product class");
         System.out.println();
         
-        // Display the second product information using the utility method
-        System.out.println("--- Product 2 (Using Utility Method) ---");
-        System.out.println(mouse.getProductInfo());
+        // Show that both objects can use inherited methods
+        System.out.println("--- Standard Product (Parent Class) ---");
+        System.out.println("Using inherited methods:");
+        System.out.println("Name: " + standardProduct.getName());
+        System.out.println("Price: $" + standardProduct.getPrice());
+        System.out.println("SKU: " + standardProduct.getSku());
+        System.out.println("Product Info: " + standardProduct.getProductInfo());
         System.out.println();
         
-        // Demonstrate that we can still modify objects, but through controlled methods
-        System.out.println("--- Modifying Objects Through Setters ---");
-        System.out.println("Original laptop price: $" + laptop.getPrice());
-        laptop.setPrice(1199.99); // Price drop through setter!
-        System.out.println("New laptop price: $" + laptop.getPrice());
-        System.out.println("Mouse price remains unchanged: $" + mouse.getPrice());
+        System.out.println("--- Digital Product (Child Class) ---");
+        System.out.println("Using inherited methods from Product class:");
+        System.out.println("Name: " + digitalProduct.getName());        // Inherited from Product
+        System.out.println("Price: $" + digitalProduct.getPrice());      // Inherited from Product
+        System.out.println("SKU: " + digitalProduct.getSku());          // Inherited from Product
+        System.out.println("Product Info: " + digitalProduct.getProductInfo()); // Inherited from Product
         System.out.println();
         
-        // Demonstrate the setProductInfo utility method
-        System.out.println("--- Using Utility Method for Bulk Updates ---");
-        Product keyboard = new Product();
-        keyboard.setProductInfo("Mechanical Keyboard", 89.99, "KEY-003");
-        System.out.println("New product created: " + keyboard.getProductInfo());
+        System.out.println("Using specialized methods from DigitalProduct class:");
+        System.out.println("Download URL: " + digitalProduct.getDownloadUrl()); // Own method
         System.out.println();
         
-        // Show that objects are still independent
-        System.out.println("--- Object Independence with Encapsulation ---");
-        System.out.println("All products are separate objects with their own data:");
-        System.out.println("Laptop: " + laptop.getProductInfo());
-        System.out.println("Mouse: " + mouse.getProductInfo());
-        System.out.println("Keyboard: " + keyboard.getProductInfo());
+        // Demonstrate method overriding
+        System.out.println("=== Method Overriding Demonstration ===");
+        System.out.println("Both classes have displayInfo() methods, but they behave differently:");
         System.out.println();
         
-        // Demonstrate the benefits of encapsulation
-        System.out.println("=== Benefits of Encapsulation ===");
-        System.out.println("1. Data Protection: Fields are private and can't be accessed directly");
-        System.out.println("2. Controlled Access: Only through public getter/setter methods");
-        System.out.println("3. Data Validation: Setters can validate data before setting");
-        System.out.println("4. Flexibility: Internal implementation can change without affecting users");
-        System.out.println("5. Better Design: Clear interface for interacting with objects");
+        System.out.println("--- Standard Product displayInfo() ---");
+        standardProduct.displayInfo(); // Calls Product's displayInfo()
         System.out.println();
         
-        // Show what happens if we try to access private fields (this would cause compilation errors)
-        System.out.println("--- What We Can't Do (Compilation Errors) ---");
-        System.out.println("// laptop.name = \"New Name\";  // ERROR: name has private access");
-        System.out.println("// System.out.println(laptop.price);  // ERROR: price has private access");
-        System.out.println("// mouse.sku = \"NEW-SKU\";  // ERROR: sku has private access");
+        System.out.println("--- Digital Product displayInfo() ---");
+        digitalProduct.displayInfo(); // Calls DigitalProduct's overridden displayInfo()
         System.out.println();
-        System.out.println("Instead, we must use the public methods:");
-        System.out.println("laptop.setName(\"New Name\");");
-        System.out.println("System.out.println(laptop.getPrice());");
-        System.out.println("mouse.setSku(\"NEW-SKU\");");
+        
+        // Show the benefits of inheritance
+        System.out.println("=== Benefits of Inheritance ===");
+        System.out.println("1. Code Reuse: DigitalProduct inherits all Product functionality");
+        System.out.println("2. Specialization: DigitalProduct adds its own specialized features");
+        System.out.println("3. Consistency: Both classes share the same interface");
+        System.out.println("4. Extensibility: Easy to add new product types");
+        System.out.println("5. Maintainability: Changes to Product affect all child classes");
+        System.out.println();
+        
+        // Demonstrate that inheritance works with arrays
+        System.out.println("=== Inheritance with Arrays ===");
+        System.out.println("We can treat both types as Product objects:");
+        
+        Product[] products = new Product[2];
+        products[0] = standardProduct;
+        products[1] = digitalProduct;
+        
+        for (int i = 0; i < products.length; i++) {
+            System.out.println("--- Product " + (i + 1) + " ---");
+            System.out.println("Name: " + products[i].getName()); // Works for both types
+            System.out.println("Price: $" + products[i].getPrice()); // Works for both types
+            System.out.println("SKU: " + products[i].getSku()); // Works for both types
+            System.out.println();
+        }
+        
+        // Show what we can't do with inheritance
+        System.out.println("=== Inheritance Limitations ===");
+        System.out.println("Parent references can only access parent methods:");
+        System.out.println("// products[1].getDownloadUrl(); // ERROR: Method not found in Product");
+        System.out.println("This is because the reference type determines available methods.");
+        System.out.println();
+        
+        System.out.println("=== Key Learning Points ===");
+        System.out.println("1. Child classes inherit all public methods from parent classes");
+        System.out.println("2. Child classes can add their own specialized methods");
+        System.out.println("3. Child classes can override parent methods with @Override");
+        System.out.println("4. The super keyword allows calling parent methods");
+        System.out.println("5. Inheritance promotes code reuse and consistency");
     }
 }

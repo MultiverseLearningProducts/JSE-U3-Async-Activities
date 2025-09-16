@@ -1,39 +1,40 @@
-# Unit 3 Work - 3-3 Solution
+# Unit 3 Work - 3-4 Solution
 
 ## Overview
-This project demonstrates encapsulation with private fields and public getter/setter methods in Java.
+This project demonstrates inheritance by creating a specialized subclass that inherits properties and behaviors from a parent class.
 
-## Task: Encapsulation with Getters and Setters
-**Objective**: Implement encapsulation by making fields private and providing public methods for controlled data access.
+## Task: Inheritance with a Digital Product
+**Objective**: Use inheritance to create a specialized subclass that inherits properties and behaviors from a parent class.
 
 ### Implementation
-- **Product.java**: Class with private fields and public getter/setter methods
-- **Store.java**: Main class demonstrating controlled data access through methods
+- **Product.java**: Parent class with displayInfo() method
+- **DigitalProduct.java**: Child class that extends Product and overrides displayInfo()
+- **Store.java**: Main class demonstrating inheritance benefits
 
 ### Key Learning Concepts
 
-#### 1. Encapsulation
-- **Private Fields**: Data is hidden and protected from direct access
-- **Public Methods**: Controlled access through getter and setter methods
-- **Data Protection**: Prevents unauthorized modification of object state
+#### 1. Inheritance
+- **Parent Class**: Product serves as the base class
+- **Child Class**: DigitalProduct extends Product
+- **Code Reuse**: Child classes inherit all parent functionality
+- **Specialization**: Child classes can add their own features
 
-#### 2. Getter Methods
-- **Purpose**: Provide read access to private fields
-- **Naming**: `getFieldName()` convention
-- **Return Type**: Same as the field type
-- **Example**: `public String getName() { return name; }`
+#### 2. Method Overriding
+- **@Override Annotation**: Indicates intentional method overriding
+- **Same Signature**: Must have the same method signature as parent
+- **Specialized Behavior**: Child class provides its own implementation
+- **super Keyword**: Allows calling parent methods from child class
 
-#### 3. Setter Methods
-- **Purpose**: Provide controlled write access to private fields
-- **Naming**: `setFieldName()` convention
-- **Parameters**: Same type as the field
-- **Example**: `public void setPrice(double price) { this.price = price; }`
+#### 3. Field Inheritance
+- **Inherited Fields**: Child classes can access parent fields through methods
+- **Additional Fields**: Child classes can have their own specialized fields
+- **Encapsulation**: Private fields are accessed through getter/setter methods
 
-#### 4. Benefits of Encapsulation
-- **Data Validation**: Setters can validate data before setting
-- **Flexibility**: Internal implementation can change without affecting users
-- **Security**: Prevents direct access to sensitive data
-- **Maintainability**: Clear interface for object interaction
+#### 4. Benefits of Inheritance
+- **Code Reuse**: Avoid duplicating code across classes
+- **Consistency**: Shared interface across related classes
+- **Maintainability**: Changes to parent affect all child classes
+- **Extensibility**: Easy to add new specialized classes
 
 ### Project Structure
 ```
@@ -41,14 +42,15 @@ unit-3-work/
 ├── src/
 │   └── main/
 │       └── java/
-│           ├── Product.java      # Encapsulated class with private fields and public methods
-│           └── Store.java        # Main class demonstrating controlled data access
+│           ├── Product.java          # Parent class with displayInfo() method
+│           ├── DigitalProduct.java   # Child class that extends Product
+│           └── Store.java            # Main class demonstrating inheritance
 └── README.md
 ```
 
 ### How to Run
 ```bash
-# Compile the classes
+# Compile all classes
 javac src/main/java/*.java
 
 # Run the Store application
@@ -57,71 +59,96 @@ java -cp src/main/java Store
 
 ### Expected Output
 ```
-=== Store Product Management with Encapsulation ===
-Demonstrating private fields and public getter/setter methods
+=== Store Product Management with Inheritance ===
+Demonstrating how child classes inherit from parent classes
 
---- Product 1 (Using Individual Getters) ---
+=== Inheritance Demonstration ===
+Both objects can use inherited methods from the Product class
+
+--- Standard Product (Parent Class) ---
+Using inherited methods:
 Name: Gaming Laptop
 Price: $1299.99
 SKU: LAP-001
+Product Info: Product: Gaming Laptop, Price: $1299.99, SKU: LAP-001
 
---- Product 2 (Using Utility Method) ---
-Product: Wireless Mouse, Price: $29.99, SKU: MOU-002
+--- Digital Product (Child Class) ---
+Using inherited methods from Product class:
+Name: E-Book: Java Programming
+Price: $29.99
+SKU: EBOOK-001
+Product Info: Product: E-Book: Java Programming, Price: $29.99, SKU: EBOOK-001
 
---- Modifying Objects Through Setters ---
-Original laptop price: $1299.99
-New laptop price: $1199.99
-Mouse price remains unchanged: $29.99
+Using specialized methods from DigitalProduct class:
+Download URL: https://store.example.com/download/ebook-001
 
---- Using Utility Method for Bulk Updates ---
-New product created: Product: Mechanical Keyboard, Price: $89.99, SKU: KEY-003
+=== Method Overriding Demonstration ===
+Both classes have displayInfo() methods, but they behave differently:
 
---- Object Independence with Encapsulation ---
-All products are separate objects with their own data:
-Laptop: Product: Gaming Laptop, Price: $1199.99, SKU: LAP-001
-Mouse: Product: Wireless Mouse, Price: $29.99, SKU: MOU-002
-Keyboard: Product: Mechanical Keyboard, Price: $89.99, SKU: KEY-003
+--- Standard Product displayInfo() ---
+=== Product Information ===
+Name: Gaming Laptop
+Price: $1299.99
+SKU: LAP-001
+Type: Standard Product
 
-=== Benefits of Encapsulation ===
-1. Data Protection: Fields are private and can't be accessed directly
-2. Controlled Access: Only through public getter/setter methods
-3. Data Validation: Setters can validate data before setting
-4. Flexibility: Internal implementation can change without affecting users
-5. Better Design: Clear interface for interacting with objects
+--- Digital Product displayInfo() ---
+=== Product Information ===
+Name: E-Book: Java Programming
+Price: $29.99
+SKU: EBOOK-001
+Type: Standard Product
+Download URL: https://store.example.com/download/ebook-001
+Type: Digital Product
+Description: This is a digital item that can be downloaded instantly
 ```
 
-### Key Differences from 3-2-Solution
+### Key Differences from 3-3-Solution
 
-#### Before (3-2-Solution)
+#### Before (3-3-Solution)
 ```java
-// Direct field access
-laptop.name = "Gaming Laptop";
-laptop.price = 1299.99;
-System.out.println(laptop.name);
+// Only Product class with encapsulation
+Product product = new Product();
+product.setName("Laptop");
+product.displayInfo(); // Only one implementation
 ```
 
-#### After (3-3-Solution)
+#### After (3-4-Solution)
 ```java
-// Controlled access through methods
-laptop.setName("Gaming Laptop");
-laptop.setPrice(1299.99);
-System.out.println(laptop.getName());
+// Inheritance with specialized child class
+Product standardProduct = new Product();
+DigitalProduct digitalProduct = new DigitalProduct();
+
+// Both can use inherited methods
+standardProduct.getName(); // Inherited method
+digitalProduct.getName();  // Inherited method
+
+// Child class has additional methods
+digitalProduct.getDownloadUrl(); // Specialized method
+
+// Method overriding
+standardProduct.displayInfo(); // Product's version
+digitalProduct.displayInfo();  // DigitalProduct's version
 ```
 
 ### Learning Objectives
-- Understand the concept of encapsulation
-- Learn how to create private fields and public methods
-- Practice using getter and setter methods
-- Understand the benefits of controlled data access
-- Learn proper method naming conventions
-- Understand the `this` keyword usage
+- Understand the concept of inheritance and parent-child relationships
+- Learn how to create child classes that extend parent classes
+- Practice method overriding with @Override annotation
+- Understand how child classes inherit parent functionality
+- Learn to use the super keyword to call parent methods
+- Understand the benefits of code reuse through inheritance
 
 ### Advanced Concepts Demonstrated
-- **Utility Methods**: `setProductInfo()` and `getProductInfo()`
-- **Method Overloading**: Multiple ways to set data
-- **Data Validation**: Potential for validation in setters
-- **Interface Design**: Clear public API for object interaction
+- **Method Overriding**: Child classes providing specialized implementations
+- **Inheritance Hierarchy**: Parent-child class relationships
+- **Code Reuse**: Avoiding duplication through inheritance
+- **Specialization**: Adding new features to inherited classes
+- **Consistency**: Shared interface across related classes
+
+### Inheritance in Action
+The key demonstration is that DigitalProduct inherits all the functionality of Product (getName, getPrice, getSku, setProductInfo, etc.) while adding its own specialized features (downloadUrl, getDownloadUrl, setDownloadUrl) and overriding the displayInfo() method to provide specialized behavior.
 
 ---
 
-*This project is designed for educational purposes and follows Java best practices for encapsulation.*
+*This project is designed for educational purposes and demonstrates fundamental object-oriented programming concepts.*
