@@ -1,40 +1,41 @@
-# Unit 3 Work - 3-4 Solution
+# Unit 3 Work - 3-5 Solution
 
 ## Overview
-This project demonstrates inheritance by creating a specialized subclass that inherits properties and behaviors from a parent class.
+This project demonstrates polymorphism in action by using parent class references to hold child class objects and observing how Java calls the correct method at runtime.
 
-## Task: Inheritance with a Digital Product
-**Objective**: Use inheritance to create a specialized subclass that inherits properties and behaviors from a parent class.
+## Task: Polymorphism in Action
+**Objective**: Observe polymorphism by using a parent class reference to hold a child class object and see how Java calls the correct method at runtime.
 
 ### Implementation
 - **Product.java**: Parent class with displayInfo() method
 - **DigitalProduct.java**: Child class that extends Product and overrides displayInfo()
-- **Store.java**: Main class demonstrating inheritance benefits
+- **Store.java**: Main class demonstrating polymorphism with parent references
 
 ### Key Learning Concepts
 
-#### 1. Inheritance
-- **Parent Class**: Product serves as the base class
-- **Child Class**: DigitalProduct extends Product
-- **Code Reuse**: Child classes inherit all parent functionality
-- **Specialization**: Child classes can add their own features
+#### 1. Polymorphism
+- **Runtime Binding**: Java determines which method to call at runtime
+- **Parent References**: Can hold child class objects
+- **Same Interface**: Different objects respond to the same method call
+- **Dynamic Dispatch**: Method resolution based on actual object type
 
 #### 2. Method Overriding
 - **@Override Annotation**: Indicates intentional method overriding
 - **Same Signature**: Must have the same method signature as parent
 - **Specialized Behavior**: Child class provides its own implementation
-- **super Keyword**: Allows calling parent methods from child class
+- **Polymorphic Calls**: Same method call produces different results
 
-#### 3. Field Inheritance
-- **Inherited Fields**: Child classes can access parent fields through methods
-- **Additional Fields**: Child classes can have their own specialized fields
-- **Encapsulation**: Private fields are accessed through getter/setter methods
+#### 3. Reference vs Object Types
+- **Reference Type**: Determines what methods are available
+- **Object Type**: Determines which version of the method is called
+- **Runtime Decision**: Java chooses the correct method at runtime
+- **Type Safety**: Compile-time checking vs runtime behavior
 
-#### 4. Benefits of Inheritance
-- **Code Reuse**: Avoid duplicating code across classes
-- **Consistency**: Shared interface across related classes
-- **Maintainability**: Changes to parent affect all child classes
-- **Extensibility**: Easy to add new specialized classes
+#### 4. Benefits of Polymorphism
+- **Code Reusability**: Same code works with different object types
+- **Flexibility**: Easy to add new types without changing existing code
+- **Maintainability**: Changes to one class don't affect others
+- **Extensibility**: New functionality through inheritance
 
 ### Project Structure
 ```
@@ -43,8 +44,8 @@ unit-3-work/
 │   └── main/
 │       └── java/
 │           ├── Product.java          # Parent class with displayInfo() method
-│           ├── DigitalProduct.java   # Child class that extends Product
-│           └── Store.java            # Main class demonstrating inheritance
+│           ├── DigitalProduct.java   # Child class that overrides displayInfo()
+│           └── Store.java            # Main class demonstrating polymorphism
 └── README.md
 ```
 
@@ -59,40 +60,25 @@ java -cp src/main/java Store
 
 ### Expected Output
 ```
-=== Store Product Management with Inheritance ===
-Demonstrating how child classes inherit from parent classes
+=== Store Product Management with Polymorphism ===
+Demonstrating how the same method call produces different output
+depending on the actual type of the object
 
-=== Inheritance Demonstration ===
-Both objects can use inherited methods from the Product class
+=== Polymorphism Demonstration ===
+Using the same variable 'currentProduct' to reference different objects
 
---- Standard Product (Parent Class) ---
-Using inherited methods:
-Name: Gaming Laptop
-Price: $1299.99
-SKU: LAP-001
-Product Info: Product: Gaming Laptop, Price: $1299.99, SKU: LAP-001
-
---- Digital Product (Child Class) ---
-Using inherited methods from Product class:
-Name: E-Book: Java Programming
-Price: $29.99
-SKU: EBOOK-001
-Product Info: Product: E-Book: Java Programming, Price: $29.99, SKU: EBOOK-001
-
-Using specialized methods from DigitalProduct class:
-Download URL: https://store.example.com/download/ebook-001
-
-=== Method Overriding Demonstration ===
-Both classes have displayInfo() methods, but they behave differently:
-
---- Standard Product displayInfo() ---
+--- Step 1: Assigning Standard Product ---
+currentProduct now references a Standard Product object
+Calling currentProduct.displayInfo():
 === Product Information ===
 Name: Gaming Laptop
 Price: $1299.99
 SKU: LAP-001
 Type: Standard Product
 
---- Digital Product displayInfo() ---
+--- Step 2: Assigning Digital Product ---
+currentProduct now references a Digital Product object
+Calling currentProduct.displayInfo() again:
 === Product Information ===
 Name: E-Book: Java Programming
 Price: $29.99
@@ -101,54 +87,61 @@ Type: Standard Product
 Download URL: https://store.example.com/download/ebook-001
 Type: Digital Product
 Description: This is a digital item that can be downloaded instantly
+
+=== The Magic of Polymorphism ===
+Notice that we used the EXACT same line of code:
+    currentProduct.displayInfo();
+
+But it produced completely different output!
+This is because Java determines at RUNTIME which method to call
+based on the ACTUAL type of the object, not the reference type.
 ```
 
-### Key Differences from 3-3-Solution
+### Key Differences from 3-4-Solution
 
-#### Before (3-3-Solution)
+#### Before (3-4-Solution)
 ```java
-// Only Product class with encapsulation
-Product product = new Product();
-product.setName("Laptop");
-product.displayInfo(); // Only one implementation
-```
-
-#### After (3-4-Solution)
-```java
-// Inheritance with specialized child class
+// Direct object references
 Product standardProduct = new Product();
 DigitalProduct digitalProduct = new DigitalProduct();
-
-// Both can use inherited methods
-standardProduct.getName(); // Inherited method
-digitalProduct.getName();  // Inherited method
-
-// Child class has additional methods
-digitalProduct.getDownloadUrl(); // Specialized method
-
-// Method overriding
 standardProduct.displayInfo(); // Product's version
 digitalProduct.displayInfo();  // DigitalProduct's version
 ```
 
+#### After (3-5-Solution)
+```java
+// Polymorphism with parent references
+Product currentProduct;
+currentProduct = new Product();
+currentProduct.displayInfo(); // Calls Product's displayInfo()
+
+currentProduct = new DigitalProduct();
+currentProduct.displayInfo(); // Calls DigitalProduct's displayInfo()!
+```
+
 ### Learning Objectives
-- Understand the concept of inheritance and parent-child relationships
-- Learn how to create child classes that extend parent classes
-- Practice method overriding with @Override annotation
-- Understand how child classes inherit parent functionality
-- Learn to use the super keyword to call parent methods
-- Understand the benefits of code reuse through inheritance
+- Understand the concept of polymorphism and runtime method resolution
+- Learn how parent references can hold child objects
+- Practice observing different behavior from the same method call
+- Understand the difference between reference type and actual object type
+- Learn how polymorphism enables flexible and extensible code
+- Understand the benefits of polymorphic design
 
 ### Advanced Concepts Demonstrated
+- **Runtime Polymorphism**: Dynamic method resolution
 - **Method Overriding**: Child classes providing specialized implementations
-- **Inheritance Hierarchy**: Parent-child class relationships
-- **Code Reuse**: Avoiding duplication through inheritance
-- **Specialization**: Adding new features to inherited classes
-- **Consistency**: Shared interface across related classes
+- **Type Casting**: Converting between parent and child references
+- **Array Polymorphism**: Using arrays of parent references
+- **Interface Design**: Single interface for multiple implementations
 
-### Inheritance in Action
-The key demonstration is that DigitalProduct inherits all the functionality of Product (getName, getPrice, getSku, setProductInfo, etc.) while adding its own specialized features (downloadUrl, getDownloadUrl, setDownloadUrl) and overriding the displayInfo() method to provide specialized behavior.
+### Polymorphism in Action
+The key demonstration is that the same line of code:
+```java
+currentProduct.displayInfo();
+```
+
+Produces completely different output depending on whether `currentProduct` references a `Product` or `DigitalProduct` object. This is the power of polymorphism - the same interface can have multiple implementations!
 
 ---
 
-*This project is designed for educational purposes and demonstrates fundamental object-oriented programming concepts.*
+*This project is designed for educational purposes and demonstrates advanced object-oriented programming concepts.*
